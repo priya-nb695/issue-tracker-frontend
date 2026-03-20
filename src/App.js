@@ -16,7 +16,7 @@ function App() {
   return (
     <div >
       <h1>Issue Tracker</h1>
-      {issues.map((issue) => (
+      {issues?.map((issue) => (
         <div key={issue.id}>
           <h3>{issue.title}</h3>
           <p>{issue.description}</p>
