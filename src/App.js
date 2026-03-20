@@ -14,8 +14,16 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div >
       <h1>Issue Tracker</h1>
+      {issues.map((issue) => (
+        <div key={issue.id}>
+          <h3>{issue.title}</h3>
+          <p>{issue.description}</p>
+          <p>Status: {issue.status}</p>
+          <p>Priority: {issue.priority}</p>
+        </div>
+      ))}
     </div>
   );
 }
