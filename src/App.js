@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getIssues,addIssues } from "./services/issueService";
+import "./main.css"
 
 function App() {
   const [issues, setIssues] = useState([]);
@@ -15,7 +16,7 @@ function App() {
     const data = await getIssues();
     setIssues(data);
   };
-console.log("issues",issues);
+
   const addIssueHandler = async (e) => {
      e.preventDefault();
      const payload = {
@@ -24,26 +25,29 @@ console.log("issues",issues);
      }
      const newIssue = await addIssues(payload);
      setIssues((prev) => [...prev,newIssue]);
-     console.log("issue submitted",newIssue);
+ 
   }
   return (
     <div>
       <h1>Issue Tracker</h1>
-      <form onSubmit={addIssueHandler}>  
-        <input
+      <form onSubmit={addIssueHandler}> 
+          <div className="form-container"> 
+           <input
             type="text" 
             name="title"
             value={title}
             placeholder="Enter the Title"
             onChange={(e)=> setTitle(e.target.value)}
           />
-        <input 
-            type="text" 
-            name="description" 
-            placeholder="Enter the Description"
-            value={description}
-            onChange={(e)=> setDescription(e.target.value)}
-          />
+          <input 
+              type="text" 
+              name="description" 
+              placeholder="Enter the Description"
+              value={description}
+              onChange={(e)=> setDescription(e.target.value)}
+            />
+          </div> 
+       
         <button type="submit">Add Issue</button>
       </form>
       
