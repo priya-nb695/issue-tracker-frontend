@@ -28,7 +28,7 @@ function App() {
  
   }
   return (
-    <div>
+    <div className="app-container">
       <h1>Issue Tracker</h1>
       <form onSubmit={addIssueHandler}> 
           <div className="form-container"> 
