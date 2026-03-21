@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getIssues } from "./services/issueService";
+import { getIssues,addIssues } from "./services/issueService";
 
 function App() {
   const [issues, setIssues] = useState([]);
@@ -15,10 +15,16 @@ function App() {
     const data = await getIssues();
     setIssues(data);
   };
-
-  const addIssueHandler = (e) => {
+console.log("issues",issues);
+  const addIssueHandler = async (e) => {
      e.preventDefault();
-   console.log("issue submitted");
+     const payload = {
+      title,
+      description
+     }
+     const newIssue = await addIssues(payload);
+     setIssues((prev) => [...prev,newIssue]);
+     console.log("issue submitted",newIssue);
   }
   return (
     <div>
