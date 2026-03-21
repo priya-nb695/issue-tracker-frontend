@@ -3,27 +3,45 @@ import { getIssues } from "./services/issueService";
 
 function App() {
   const [issues, setIssues] = useState([]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     fetchIssues();
   }, []);
 
   const fetchIssues = async () => {
+   
     const data = await getIssues();
     setIssues(data);
   };
 
-  const addIssueHandler = () => {
+  const addIssueHandler = (e) => {
+     e.preventDefault();
    console.log("issue submitted");
   }
   return (
     <div>
       <h1>Issue Tracker</h1>
       <form onSubmit={addIssueHandler}>  
-        <input type="text" name="title" placeholder="Enter the Title"/>
-        <input type="text" name="description" placeholder="Enter the Description"/>
+        <input
+            type="text" 
+            name="title"
+            value={title}
+            placeholder="Enter the Title"
+            onChange={(e)=> setTitle(e.target.value)}
+          />
+        <input 
+            type="text" 
+            name="description" 
+            placeholder="Enter the Description"
+            value={description}
+            onChange={(e)=> setDescription(e.target.value)}
+          />
+        <button type="submit">Add Issue</button>
       </form>
-
+      
+      <hr />
 
       <h2>Issue List</h2>
       {issues?.map((issue) => (
