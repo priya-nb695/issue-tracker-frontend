@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getIssues,addIssues } from "./services/issueService";
+import { getIssues,addIssue,editIssue } from "./services/issueService";
 import "./main.css"
 
 function App() {
@@ -23,9 +23,18 @@ function App() {
       title,
       description
      }
-     const newIssue = await addIssues(payload);
+     const newIssue = await addIssue(payload);
      setIssues((prev) => [...prev,newIssue]);
  
+  }
+  const handleIssueEdit = async (id) => {
+    const editObj = issues.find(obj => id == obj._id);
+    // console.log("the edit obj",editObj);
+   setTitle(editObj.title || "");
+   setDescription(editObj.description || "");
+    // console.log("id",id)
+    // const res = await editIssue (id);
+    //  console.log("res",res)
   }
   return (
     <div className="app-container">
@@ -60,6 +69,7 @@ function App() {
           <p>{issue.description}</p>
           <p>Status: {issue.status}</p>
           <p>Priority: {issue.priority}</p>
+          <button onClick={() => handleIssueEdit(issue._id)}>Edit</button>
           <hr />
         </div>
       ))}

@@ -7,7 +7,12 @@ export const getIssues = async () => {
   return response.data;
 };
 
-export const addIssues = async (body) =>{
+export const addIssue = async (body) =>{
   const response = await axios.post(API_URL,body);
+  return response.data;
+}
+
+export const editIssue = async (id) =>{
+  const response = await axios.put(`${API_URL}/${id}`);
   return response.data;
 }
