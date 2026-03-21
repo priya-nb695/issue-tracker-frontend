@@ -6,3 +6,8 @@ export const getIssues = async () => {
   const response = await axios.get(API_URL);
   return response.data;
 };
+
+export const addIssues = async (body) =>{
+  const response = await axios.post(API_URL,body);
+  return response.data;
+}

@@ -13,10 +13,19 @@ function App() {
     setIssues(data);
   };
 
+  const addIssueHandler = () => {
+   console.log("issue submitted");
+  }
   return (
     <div>
       <h1>Issue Tracker</h1>
+      <form onSubmit={addIssueHandler}>  
+        <input type="text" name="title" placeholder="Enter the Title"/>
+        <input type="text" name="description" placeholder="Enter the Description"/>
+      </form>
 
+
+      <h2>Issue List</h2>
       {issues?.map((issue) => (
         <div key={issue._id}>
           <h3>{issue.title}</h3>
