@@ -36,14 +36,16 @@ function App() {
  const  handleValidation = () => {
     if(title.trim() == ""){
       setErrorObj((prev)=>({
+        ...prev,
         title:"Please enter title"
       }))
 
       return true;
     }
-    else if(description.trim() == ""){
+    if(description.trim() == ""){
       setErrorObj((prev)=>({
-        title:"Please enter title"
+        ...prev,
+        description:"Please enter description"
       }))
 
       return true;
