@@ -11,7 +11,11 @@ function App() {
   const [isEdit , setIsEdit] = useState(false);
   const [editId , setEditId] = useState("");
   const formSection = useRef(null);
+  const [errorObj, setErrorObj] = useState({
+    title:"",
+    description:"",
 
+  })
   useEffect(() => {
     fetchIssues();
   }, []);
@@ -22,9 +26,23 @@ function App() {
     setIssues(data);
   };
 
+ const  handleValidation = () => {
+    if(title.trim() == ""){
+      setErrorObj((prev)=>({
+        title:"Please enter title"
+      }))
+    }
+    else if(description.trim() == ""){
+      setErrorObj((prev)=>({
+        title:"Please enter title"
+      }))
+    }
+  };
+
   const addIssueHandler = async (e) => {
      setEditId("");
      e.preventDefault();
+     handleValidation();
      const payload = {
       title,
       description,
@@ -72,13 +90,16 @@ function App() {
            <input
             type="text" 
             name="title"
+            required
             value={title}
             placeholder="Enter the Title"
             onChange={(e)=> setTitle(e.target.value)}
           />
+          <p className="error-text"></p>
           <input 
               type="text" 
               name="description" 
+              required
               placeholder="Enter the Description"
               value={description}
               onChange={(e)=> setDescription(e.target.value)}
