@@ -18,7 +18,14 @@ function App() {
   })
   useEffect(() => {
     fetchIssues();
+   
   }, []);
+  useEffect(()=>{
+     setErrorObj({
+      title:"",
+      description:"",
+    })
+  },[title,description])
 
   const fetchIssues = async () => {
    
@@ -31,18 +38,25 @@ function App() {
       setErrorObj((prev)=>({
         title:"Please enter title"
       }))
+
+      return true;
     }
     else if(description.trim() == ""){
       setErrorObj((prev)=>({
         title:"Please enter title"
       }))
+
+      return true;
     }
+    return false;
   };
 
   const addIssueHandler = async (e) => {
      setEditId("");
      e.preventDefault();
-     handleValidation();
+     if(handleValidation()){
+      return ;
+     };
      const payload = {
       title,
       description,
@@ -90,20 +104,25 @@ function App() {
            <input
             type="text" 
             name="title"
-            required
             value={title}
             placeholder="Enter the Title"
             onChange={(e)=> setTitle(e.target.value)}
           />
-          <p className="error-text"></p>
+          {errorObj.title &&
+            <p className="error-text">{errorObj.title}</p>
+           }
+          
           <input 
               type="text" 
               name="description" 
-              required
               placeholder="Enter the Description"
               value={description}
               onChange={(e)=> setDescription(e.target.value)}
             />
+            {errorObj.description &&
+              <p className="error-text">{errorObj.description}</p>
+            }
+          
             <select>
                 <option>Open</option>
                 <option>In Progress</option>
