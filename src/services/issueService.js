@@ -16,3 +16,8 @@ export const editIssue = async (id) =>{
   const response = await axios.put(`${API_URL}/${id}`);
   return response.data;
 }
+
+export const deleteIssue = async (id) => {
+  const response = await axios.delete(`${API_URL}/${id}`);
+  return response.data;
+}

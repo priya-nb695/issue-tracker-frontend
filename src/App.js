@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef} from "react";
-import { getIssues,addIssue,editIssue } from "./services/issueService";
+import { getIssues,addIssue,editIssue,deleteIssue } from "./services/issueService";
 import "./main.css"
 
 function App() {
@@ -58,6 +58,12 @@ function App() {
    setPriority(editObj.priority);
   
   }
+  const handleIssueDelete = async (id) => {
+
+    const deletedIssue = await deleteIssue(id);
+    setIssues((prev) => prev.filter((el) => el._id !== id));
+    
+  }
   return (
     <div className="app-container">
       <h1>Issue Tracker</h1>
@@ -102,6 +108,7 @@ function App() {
           <p>Status: {issue.status}</p>
           <p>Priority: {issue.priority}</p>
           <button onClick={() => handleIssueEdit(issue._id)}>Edit</button>
+          <button onClick={() => handleIssueDelete(issue._id)}>Delete</button>
           <hr />
         </div>
       ))}
