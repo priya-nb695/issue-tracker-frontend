@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef} from "react";
 import { getIssues,addIssue,editIssue } from "./services/issueService";
 import "./main.css"
 
@@ -6,7 +6,11 @@ function App() {
   const [issues, setIssues] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  
+  const [status, setStatus] = useState("Open");
+  const [priority, setPriority] = useState("Low");
+  const [isEdit , setIsEdit] = useState(false);
+  const [editId , setEditId] = useState("");
+  const formSection = useRef(null);
 
   useEffect(() => {
     fetchIssues();
@@ -19,29 +23,46 @@ function App() {
   };
 
   const addIssueHandler = async (e) => {
+     setEditId("");
      e.preventDefault();
      const payload = {
       title,
-      description
+      description,
+      status,
+      priority
      }
      const newIssue = await addIssue(payload);
      setIssues((prev) => [...prev,newIssue]);
  
   }
+  const editIssueHandler = async (e) => {
+     e.preventDefault();
+
+     const editedIssue = await editIssue(editId);
+     setIssues((prev) => prev.map((el) =>
+     {
+      return el._id == editId ? editedIssue : el 
+     }
+    ));
+ 
+  }
   const handleIssueEdit = async (id) => {
-    const editObj = issues.find(obj => id == obj._id);
-    // console.log("the edit obj",editObj);
+
+   const editObj = issues.find(obj => id == obj._id);
+   formSection.current.scrollIntoView({ behavior: "smooth" });
+   setEditId(editObj._id);
+   setIsEdit(true);
    setTitle(editObj.title || "");
    setDescription(editObj.description || "");
-    // console.log("id",id)
-    // const res = await editIssue (id);
-    //  console.log("res",res)
+   setStatus(editObj.status);
+   setPriority(editObj.priority);
+  
   }
   return (
     <div className="app-container">
       <h1>Issue Tracker</h1>
-      <form onSubmit={addIssueHandler}> 
-          <div className="form-container"> 
+      <form onSubmit={isEdit ? editIssueHandler : addIssueHandler} ref={formSection}> 
+          <div className="form-container" > 
            <input
             type="text" 
             name="title"
@@ -68,7 +89,7 @@ function App() {
             </select>
           </div> 
        
-        <button type="submit">Add Issue</button>
+        <button type="submit">{ isEdit ? "Edit Issue" : "Add Issue"}</button>
       </form>
       
       <hr />
