@@ -6,6 +6,7 @@ function App() {
   const [issues, setIssues] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  
 
   useEffect(() => {
     fetchIssues();
@@ -55,6 +56,16 @@ function App() {
               value={description}
               onChange={(e)=> setDescription(e.target.value)}
             />
+            <select>
+                <option>Open</option>
+                <option>In Progress</option>
+                <option>Done</option>
+            </select>
+            <select>
+                <option>Low</option>
+                <option>Medium</option>
+                <option>High</option>
+            </select>
           </div> 
        
         <button type="submit">Add Issue</button>
@@ -64,7 +75,7 @@ function App() {
 
       <h2>Issue List</h2>
       {issues?.map((issue) => (
-        <div key={issue._id}>
+        <div key={issue._id} className="issue-container">
           <h3>{issue.title}</h3>
           <p>{issue.description}</p>
           <p>Status: {issue.status}</p>

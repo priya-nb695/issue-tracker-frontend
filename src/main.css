@@ -1,5 +1,5 @@
 .app-container{
-    width: 350px;
+    width: 550px;
     margin: auto;
 
 }
@@ -7,4 +7,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin:5px 0px;
+}
+.issue-container{
+    border:1px solid grey;
 }
