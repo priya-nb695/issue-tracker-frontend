@@ -124,17 +124,17 @@ function App() {
             {errorObj.description &&
               <p className="error-text">{errorObj.description}</p>
             }
-          
-            <select>
-                <option>Open</option>
-                <option>In Progress</option>
-                <option>Done</option>
-            </select>
-            <select>
-                <option>Low</option>
-                <option>Medium</option>
-                <option>High</option>
-            </select>
+          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+            <option>Open</option>
+            <option>In Progress</option>
+            <option>Done</option>
+          </select>
+
+          <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+          </select>
           </div> 
        
         <button type="submit">{ isEdit ? "Edit Issue" : "Add Issue"}</button>
