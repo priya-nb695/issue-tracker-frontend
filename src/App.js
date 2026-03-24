@@ -102,7 +102,7 @@ function App() {
 
     resetForm();
   };
-  
+
   const handleIssueEdit = (id) => {
     const editObj = issues.find((obj) => id === obj._id);
 
@@ -173,7 +173,6 @@ function App() {
       </form>
 
       <hr />
-
       <h2>Issue List</h2>
 
       {issues.length === 0 && <p className="empty">No issues yet 🚀</p>}
