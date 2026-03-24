@@ -12,10 +12,17 @@ export const addIssue = async (body) =>{
   return response.data;
 }
 
-export const editIssue = async (id) =>{
-  const response = await axios.put(`${API_URL}/${id}`);
-  return response.data;
-}
+export const editIssue = async (id, data) => {
+  const res = await fetch(`http://localhost:5000/issues/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  return res.json();
+};
 
 export const deleteIssue = async (id) => {
   const response = await axios.delete(`${API_URL}/${id}`);
