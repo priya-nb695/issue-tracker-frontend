@@ -83,20 +83,25 @@ function App() {
   };
 
   const editIssueHandler = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (handleValidation()) return;
+  if (handleValidation()) return;
 
-    const payload = { title, description, status, priority };
+  const payload = { title, description, status, priority };
 
-    const updatedIssue = await editIssue(editId, payload);
+  console.log("Editing ID:", editId);        // 👈 check this
+  console.log("Payload:", payload);          // 👈 check this
 
-    setIssues((prev) =>
-      prev.map((el) => (el._id === editId ? updatedIssue : el))
-    );
+  const updatedIssue = await editIssue(editId, payload);
 
-    resetForm();
-  };
+  console.log("Response:", updatedIssue);    // 👈 check this
+
+  setIssues((prev) =>
+    prev.map((el) => (el._id === editId ? updatedIssue : el))
+  );
+
+  resetForm();
+};
 
   const handleIssueEdit = (id) => {
     const editObj = issues.find((obj) => id === obj._id);
