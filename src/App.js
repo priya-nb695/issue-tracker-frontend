@@ -71,18 +71,27 @@ function App() {
     setEditId("");
   };
 
-  const addIssueHandler = async (e) => {
-    e.preventDefault();
+ const addIssueHandler = async (e) => {
+  e.preventDefault();
 
-    if (handleValidation()) return;
+  if (handleValidation()) {
+    toast.error("Please fix validation errors");
+    return;
+  }
 
+  try {
     const payload = { title, description, status, priority };
 
     const newIssue = await addIssue(payload);
     setIssues((prev) => [...prev, newIssue]);
 
+    toast.success("Issue added successfully ✅");
+
     resetForm();
-  };
+  } catch (err) {
+    toast.error("Failed to add issue ❌");
+  }
+};
 
   const editIssueHandler = async (e) => {
     e.preventDefault();
