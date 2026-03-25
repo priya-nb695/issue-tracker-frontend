@@ -93,17 +93,18 @@ function App() {
   }
 };
 
-  const editIssueHandler = async (e) => {
-    e.preventDefault();
+ const editIssueHandler = async (e) => {
+  e.preventDefault();
 
-    if (handleValidation()) return;
+  if (handleValidation()) {
+    toast.error("Please fix validation errors");
+    return;
+  }
 
+  try {
     const payload = { title, description, status, priority };
 
-    console.log("Editing:", editId, payload);
-
-    const updatedIssue = await editIssue(editId, payload);
-    console.log("Response:", updatedIssue);
+    await editIssue(editId, payload);
 
     setIssues((prev) =>
       prev.map((el) =>
@@ -111,8 +112,13 @@ function App() {
       )
     );
 
+    toast.success("Issue updated ✏️");
+
     resetForm();
-  };
+  } catch (err) {
+    toast.error("Update failed ❌");
+  }
+};
 
   const handleIssueEdit = (id) => {
     const editObj = issues.find((obj) => id === obj._id);
@@ -128,9 +134,15 @@ function App() {
   };
 
   const handleIssueDelete = async (id) => {
+  try {
     await deleteIssue(id);
     setIssues((prev) => prev.filter((el) => el._id !== id));
-  };
+
+    toast.success("Issue deleted 🗑️");
+  } catch (err) {
+    toast.error("Delete failed ❌");
+  }
+};
 
   return (
     <div className="app-container">
