@@ -6,6 +6,8 @@ import {
   deleteIssue,
 } from "./services/issueService";
 import "./main.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [issues, setIssues] = useState([]);
@@ -202,7 +204,9 @@ function App() {
           </div>
         </div>
       ))}
+         <ToastContainer position="top-right" autoClose={2000} />
     </div>
+    
   );
 }
 
