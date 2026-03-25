@@ -71,54 +71,54 @@ function App() {
     setEditId("");
   };
 
- const addIssueHandler = async (e) => {
-  e.preventDefault();
+  const addIssueHandler = async (e) => {
+    e.preventDefault();
 
-  if (handleValidation()) {
-    toast.error("Please fix validation errors");
-    return;
-  }
+    if (handleValidation()) {
+      toast.error("Please fix validation errors");
+      return;
+    }
 
-  try {
-    const payload = { title, description, status, priority };
+    try {
+      const payload = { title, description, status, priority };
 
-    const newIssue = await addIssue(payload);
-    setIssues((prev) => [...prev, newIssue]);
+      const newIssue = await addIssue(payload);
+      setIssues((prev) => [...prev, newIssue]);
 
-    toast.success("Issue added successfully ✅");
+      toast.success("Issue added successfully ✅");
 
-    resetForm();
-  } catch (err) {
-    toast.error("Failed to add issue ❌");
-  }
-};
+      resetForm();
+    } catch (err) {
+      toast.error("Failed to add issue ❌");
+    }
+  };
 
- const editIssueHandler = async (e) => {
-  e.preventDefault();
+  const editIssueHandler = async (e) => {
+    e.preventDefault();
 
-  if (handleValidation()) {
-    toast.error("Please fix validation errors");
-    return;
-  }
+    if (handleValidation()) {
+      toast.error("Please fix validation errors");
+      return;
+    }
 
-  try {
-    const payload = { title, description, status, priority };
+    try {
+      const payload = { title, description, status, priority };
 
-    await editIssue(editId, payload);
+      await editIssue(editId, payload);
 
-    setIssues((prev) =>
-      prev.map((el) =>
-        el._id === editId ? { ...el, ...payload } : el
-      )
-    );
+      setIssues((prev) =>
+        prev.map((el) =>
+          el._id === editId ? { ...el, ...payload } : el
+        )
+      );
 
-    toast.success("Issue updated ✏️");
+      toast.success("Issue updated ✏️");
 
-    resetForm();
-  } catch (err) {
-    toast.error("Update failed ❌");
-  }
-};
+      resetForm();
+    } catch (err) {
+      toast.error("Update failed ❌");
+    }
+  };
 
   const handleIssueEdit = (id) => {
     const editObj = issues.find((obj) => id === obj._id);
@@ -134,15 +134,15 @@ function App() {
   };
 
   const handleIssueDelete = async (id) => {
-  try {
-    await deleteIssue(id);
-    setIssues((prev) => prev.filter((el) => el._id !== id));
+    try {
+      await deleteIssue(id);
+      setIssues((prev) => prev.filter((el) => el._id !== id));
 
-    toast.success("Issue deleted 🗑️");
-  } catch (err) {
-    toast.error("Delete failed ❌");
-  }
-};
+      toast.success("Issue deleted 🗑️");
+    } catch (err) {
+      toast.error("Delete failed ❌");
+    }
+  };
 
   return (
     <div className="app-container">
@@ -225,9 +225,9 @@ function App() {
           </div>
         </div>
       ))}
-         <ToastContainer position="top-right" autoClose={2000} />
+      <ToastContainer position="top-right" autoClose={2000} />
     </div>
-    
+
   );
 }
 
