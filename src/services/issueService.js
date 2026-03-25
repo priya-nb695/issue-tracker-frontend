@@ -18,7 +18,7 @@ export const addIssue = async (body) => {
 
 export const editIssue = async (id, data) => {
 
-  const res = await fetch(`/api/issues/${id}`, {
+  const res = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
